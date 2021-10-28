@@ -9,8 +9,8 @@ public final class DBContract {
     private DBContract(){}
 
     public static class DBDataEntry implements BaseColumns {
-        public static final String USER_TABLE_NAME = "glca_user";
-        public static final String USER_CONTENT_TABLE_NAME = "glca_content";
+        public static final String USER_TABLE_NAME = "gl_user";
+        public static final String USER_CONTENT_TABLE_NAME = "gl_content";
         public static final String COLUMN_NAME_EMAIL = "email";
         public static final String COLUMN_NAME_PASSWORD = "password";
         public static final String COLUMN_NAME_USERNAME = "name";
@@ -54,7 +54,7 @@ public final class DBContract {
     public static class DBHelper extends SQLiteOpenHelper {
         // If you change the database schema, you must increment the database version.
         public static final int DATABASE_VERSION = 1;
-        public static final String DATABASE_NAME = "FeedReader.db";
+        public static final String DATABASE_NAME = "GL.db";
 
         public DBHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
