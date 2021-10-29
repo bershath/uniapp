@@ -3,6 +3,7 @@ package org.bershath.labs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -36,10 +37,31 @@ public class Authenticate extends AppCompatActivity {
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
 
                 String[] projection = {
-                        BaseColumns._ID,
                         DBContract.DBDataEntry.COLUMN_NAME_EMAIL,
                         DBContract.DBDataEntry.COLUMN_NAME_USERNAME
                 };
+                // Filter results WHERE "title" = 'My Title'
+                String selection = DBContract.DBDataEntry.COLUMN_NAME_EMAIL + " = ?"+" AND " + DBContract.DBDataEntry.COLUMN_NAME_PASSWORD +"=?";
+                String[] selectionArgs = { userEmail,password };
+
+                // How you want the results sorted in the resulting Cursor
+                String sortOrder = DBContract.DBDataEntry.COLUMN_NAME_EMAIL + " DESC";
+
+                Cursor cursor = db.query(
+                        DBContract.DBDataEntry.USER_TABLE_NAME,   // The table to query
+                        projection,             // The array of columns to return (pass null to get all)
+                        selection,              // The columns for the WHERE clause
+                        selectionArgs,          // The values for the WHERE clause
+                        null,                   // don't group the rows
+                        null,                   // don't filter by row groups
+                        sortOrder               // The sort order
+                );
+
+                boolean pos = cursor.moveToNext();
+                final String vUname = cursor.getString(1);
+                Bundle bundle = cursor.getExtras();
+                String uname = bundle.getString("name");
+                String sas = uname;
 
 
             }
